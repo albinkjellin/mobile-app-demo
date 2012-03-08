@@ -23,22 +23,17 @@ http://www.mulesoft.org/schema/mule/sfdc http://www.mulesoft.org/schema/mule/sfd
             </scripting:script>
         </scripting:transformer>
         <json:json-to-object-transformer returnClass="java.util.Map" doc:name="Json-to-Object"/>
-        <response>
-            <logger message="#[payload:]" level="INFO" doc:name="Logger"/>
-        </response>
-        <logger message="#[groovy:payload]" level="INFO" doc:name="Logger"/>
         <all doc:name="All">
             <processor-chain>
-                <logger message="*#[groovy:payload.date]*#[groovy:payload.description]*#[groovy:payload.amount]*#[groovy:payload.account]*#[groovy:payload.name]*#[groovy:payload.stagename]" level="ERROR" doc:name="Logger"/>
                 <sfdc:create config-ref="sfconnector" type="Opportunity" doc:name="Salesforce">
                     <sfdc:objects>
                         <sfdc:object>
                             <sfdc:inner-object key="AccountId">#[groovy:payload.account]</sfdc:inner-object>
-                            <sfdc:inner-object key="CloseDate">#[groovy:payload.date]</sfdc:inner-object>
-                            <sfdc:inner-object key="Amount">#[groovy:payload.amount]</sfdc:inner-object>
-                            <sfdc:inner-object key="Name">#[groovy:payload.name]</sfdc:inner-object>
-                            <sfdc:inner-object key="StageName">#[groovy:payload.stage]</sfdc:inner-object>
                             <sfdc:inner-object key="Description">#[groovy:payload.description]</sfdc:inner-object>
+                            <sfdc:inner-object key="StageName">#[groovy:payload.stage]</sfdc:inner-object>
+                            <sfdc:inner-object key="Name">#[groovy:payload.name]</sfdc:inner-object>
+                            <sfdc:inner-object key="Amount">#[groovy:payload.amount]</sfdc:inner-object>
+                            <sfdc:inner-object key="CloseDate">#[groovy:payload.date]</sfdc:inner-object>
                         </sfdc:object>
                     </sfdc:objects>
                 </sfdc:create>

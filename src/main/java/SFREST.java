@@ -11,7 +11,6 @@ public class SFREST {
     @Consumes("application/xml")
     @Path("/" )
     public String getOpportunityList(String message) {
-        System.out.println("message = "+message);
     	return message;
     }
 }
